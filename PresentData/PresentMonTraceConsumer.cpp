@@ -83,6 +83,7 @@ PresentEvent::PresentEvent()
     , GPUVideoDuration(0)
     , ScreenTime(0)
     , InputTime(0)
+    , PlaneIndex(0)
 
     , SwapChainAddress(0)
     , SyncInterval(-1)
@@ -768,7 +769,11 @@ void PMTraceConsumer::HandleDXGKEvent(EVENT_RECORD* pEventRecord)
             //
             // For some present modes (e.g., Hardware_Legacy_Flip) this may be
             // the first event telling us the present is ready.
-            mGpuTrace.CompleteFrame(present.get(), hdr.TimeStamp.QuadPart);
+            PresentEvent* pEvent = present.get();
+            if (pEvent->ReadyTime == 0) {
+                pEvent->PlaneIndex = mMetadata.GetEventData<uint32_t>(pEventRecord, L"LayerIndex");
+            }
+            mGpuTrace.CompleteFrame(pEvent, hdr.TimeStamp.QuadPart);
 
             // Check and handle the post-flip status if available.
             if (flipEntryStatusAfterFlipValid) {

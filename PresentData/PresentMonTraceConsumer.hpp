@@ -142,6 +142,7 @@ struct PresentEvent {
     uint64_t GPUVideoDuration;  // QPC duration during which a frame's DMA packet was running on a video node (if mTrackGPUVideo==true)
     uint64_t ScreenTime;        // QPC value when the present was displayed on screen
     uint64_t InputTime;         // Earliest QPC value when the keyboard/mouse was clicked and used by this frame
+    uint32_t PlaneIndex;
 
     // Extra present parameters obtained through DXGI or D3D9 present
     uint64_t SwapChainAddress;
@@ -409,7 +410,7 @@ struct PMTraceConsumer
     void HandleDxgkFlip(EVENT_HEADER const& hdr, int32_t flipInterval, bool isMMIOFlip, bool isMPOFlip);
     void HandleDxgkQueueSubmit(EVENT_HEADER const& hdr, uint64_t hContext, uint32_t submitSequence, uint32_t packetType, bool isPresentPacket, bool isWin7);
     void HandleDxgkQueueComplete(uint64_t timestamp, uint64_t hContext, uint32_t submitSequence);
-    void HandleDxgkMMIOFlip(uint64_t timestamp, uint32_t submitSequence, uint32_t flags);
+    void HandleDxgkMMIOFlip(uint64_t timestamp, uint32_t submitSequence, uint32_t flags); //, EVENT_RECORD* pEventRecord);
     void HandleDxgkSyncDPC(uint64_t timestamp, uint32_t submitSequence);
     void HandleDxgkPresentHistory(EVENT_HEADER const& hdr, uint64_t token, uint64_t tokenData, Microsoft_Windows_DxgKrnl::PresentModel presentModel);
     void HandleDxgkPresentHistoryInfo(EVENT_HEADER const& hdr, uint64_t token);
