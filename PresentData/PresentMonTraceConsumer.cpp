@@ -83,7 +83,7 @@ PresentEvent::PresentEvent()
     , GPUVideoDuration(0)
     , ScreenTime(0)
     , InputTime(0)
-    , PlaneIndex(0)
+    , PlaneIndex(-1)
 
     , SwapChainAddress(0)
     , SyncInterval(-1)

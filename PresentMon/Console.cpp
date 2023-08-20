@@ -217,8 +217,10 @@ void UpdateConsole(uint32_t processId, ProcessInfo const& processInfo)
 
         if (displayN != nullptr) {
             ConsolePrint(" %s", PresentModeToString(displayN->PresentMode));
-            if (displayN->PresentMode == PresentMode::Hardware_Composed_Independent_Flip) {
-                ConsolePrint(": Plane: %d", displayN->PlaneIndex);
+            //if (displayN->PresentMode == PresentMode::Hardware_Composed_Independent_Flip) {
+            int32_t planeIndex = displayN->PlaneIndex;
+            if (planeIndex != -1) {
+                ConsolePrint(": Plane: %d", planeIndex);
             }
         }
 
