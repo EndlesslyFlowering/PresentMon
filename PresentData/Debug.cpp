@@ -56,6 +56,7 @@ char* AddCommas(uint64_t t)
 }
 
 void PrintU32(uint32_t value) { printf("%u", value); }
+void PrintI32(int32_t value) { printf("%d", value); }
 void PrintU64(uint64_t value) { printf("%llu", value); }
 void PrintU64x(uint64_t value) { printf("0x%llx", value); }
 void PrintBool(bool value) { printf("%s", value ? "true" : "false"); }
@@ -207,6 +208,7 @@ void FlushModifiedPresent()
     FLUSH_MEMBER(PrintTime,          PresentStopTime)
     FLUSH_MEMBER(PrintTime,          ReadyTime)
     FLUSH_MEMBER(PrintTime,          ScreenTime)
+    FLUSH_MEMBER(PrintI32,           PlaneIndex)
     FLUSH_MEMBER(PrintTime,          InputTime)
     FLUSH_MEMBER(PrintTime,          GPUStartTime)
     FLUSH_MEMBER(PrintTimeDelta,     GPUDuration)
